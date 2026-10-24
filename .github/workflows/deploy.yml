@@ -17,11 +17,19 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Get ACR Credentials
+        id: acr-creds
+        run: |
+          ACR_PASS=$(az acr credential show --name mlsecops --query "passwords[0].value" -o tsv)
+          echo "acr_password=$ACR_PASS" >> $GITHUB_OUTPUT
+
       - name: Build and Deploy to Container App
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
           acrName: mlsecops
+          acrUser: mlsecops
+          acrPassword: ${{ steps.acr-creds.outputs.acr_password }}
           containerAppName: mlsecops-api
           resourceGroup: MLsecopz
           dockerfilePath: ./Dockerfile
