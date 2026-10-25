@@ -28,7 +28,7 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           acrName: mlsecops
-          acrUser: mlsecops
+          acrUsername: mlsecops
           acrPassword: ${{ steps.acr-creds.outputs.acr_password }}
           containerAppName: mlsecops-api
           resourceGroup: MLsecopz
