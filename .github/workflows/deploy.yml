@@ -27,9 +27,9 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          acrName: mlsecops
-          acrUsername: mlsecops
-          acrPassword: ${{ steps.acr-creds.outputs.acr_password }}
+          registryUrl: mlsecops.azurecr.io
+          registryUsername: mlsecops
+          registryPassword: ${{ steps.acr-creds.outputs.acr_password }}
           containerAppName: mlsecops-api
           resourceGroup: MLsecopz
           dockerfilePath: ./Dockerfile
